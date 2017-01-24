@@ -1,0 +1,17 @@
+{% load static %}
+<html>
+<head>
+	<title>Funddo</title>
+</head>
+<body>
+<h1> Welcome{{ user.username}} </h1>
+<a href="{% url 'about' %}">About Us</a>
+{% if user.is_authenticated %}
+<a href="{% url 'logout' %}">logout</a>
+<a href="{% url 'make_request' %}">MAKE A REQUEST</a>
+{% else %}
+<a href="{% url 'register' %}">register</a>
+<a href="{% url 'login' %}">login</a>
+{% endif %}
+</body>
+</html>

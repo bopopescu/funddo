@@ -1,13 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
+from models import UserProfile, Request
 from django.contrib.auth.models import User
 from forms import RequestForm, UserForm, UserProfileForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 # Create your views here.
 
 def index(request):
-	return HttpResponse("Funddo")
+	context_dict = {}
+	return render(request, 'index.html', context_dict)
+
 
 def about(request):
 	context_dict = {}
@@ -19,12 +23,18 @@ def make_request(request):
 		if form.is_valid():
 			post = form.save(commit=False)
 			post.poster = request.user
-			post.posted_on = timezone.now()
+			post.posted_on = datetime.now()
 			post.save()
-			return redirect('/', pk=post.pk)
+			return HttpResponseRedirect('/')
 	else:
 		form = RequestForm()
 	return render(request, 'make_request.html', {'form': form})
+def requests(request):
+	context_dict = {}
+	content = Request.objects.get(request=request)
+
+	return render(request, 'requests.html', context_dict)
+
 
 def register(request):
 	registered = False
