@@ -12,9 +12,10 @@ class UserProfile(models.Model):
 
 class Request(models.Model):
 	poster = models.ForeignKey(UserProfile)
+	title = models.CharField(max_length=128)
 	request = models.TextField()
 	posted_on = models.DateTimeField(auto_now_add=True)
 	
 
 	def __unicode__(self):
-		return self.
+		return self
