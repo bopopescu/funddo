@@ -9,3 +9,12 @@ class UserProfile(models.Model):
 
 	def __unicode__(self):
 		return self.user.username
+
+class Request(models.Model):
+	poster = models.ForeignKey(UserProfile)
+	request = models.TextField()
+	posted_on = models.DateTimeField(auto_now_add=True)
+	
+
+	def __unicode__(self):
+		return self.
